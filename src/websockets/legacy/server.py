@@ -411,12 +411,12 @@ class WebSocketServerProtocol(WebSocketCommonProtocol):
         available_extensions: Sequence[ServerExtensionFactory] | None,
     ) -> tuple[str | None, list[Extension]]:
         """
-        Handle the Sec-WebSocket-Extensions HTTP request header.
+        Handle the Sec-BnSocket-Extensions HTTP request header.
 
         Accept or reject each extension proposed in the client request.
         Negotiate parameters for accepted extensions.
 
-        Return the Sec-WebSocket-Extensions HTTP response header and the list
+        Return the Sec-BnSocket-Extensions HTTP response header and the list
         of accepted extensions.
 
         :rfc:`6455` leaves the rules up to the specification of each
@@ -450,7 +450,7 @@ class WebSocketServerProtocol(WebSocketCommonProtocol):
         extension_headers: list[ExtensionHeader] = []
         accepted_extensions: list[Extension] = []
 
-        header_values = headers.get_all("Sec-WebSocket-Extensions")
+        header_values = headers.get_all("Sec-BnSocket-Extensions")
 
         if header_values and available_extensions:
             parsed_header_values: list[ExtensionHeader] = sum(
@@ -632,7 +632,7 @@ class WebSocketServerProtocol(WebSocketCommonProtocol):
         build_response(response_headers, key)
 
         if extensions_header is not None:
-            response_headers["Sec-WebSocket-Extensions"] = extensions_header
+            response_headers["Sec-BnSocket-Extensions"] = extensions_header
 
         if protocol_header is not None:
             response_headers["Sec-WebSocket-Protocol"] = protocol_header

@@ -104,7 +104,7 @@ class ConnectTests(unittest.TestCase):
         )
         request = client.connect()
 
-        self.assertEqual(request.headers["Sec-WebSocket-Extensions"], "x-op; op")
+        self.assertEqual(request.headers["Sec-BnSocket-Extensions"], "x-op; op")
 
     def test_subprotocols(self):
         client = ClientProtocol(
@@ -376,7 +376,7 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ClientOpExtensionFactory()],
         )
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-op; op"
+        response.headers["Sec-BnSocket-Extensions"] = "x-op; op"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 
@@ -389,7 +389,7 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ClientRsv2ExtensionFactory()],
         )
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-rsv2"
+        response.headers["Sec-BnSocket-Extensions"] = "x-rsv2"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 
@@ -399,7 +399,7 @@ class AcceptRejectTests(unittest.TestCase):
     def test_unexpected_extension(self):
         client = ClientProtocol(parse_uri("wss://example.com/"))
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-op; op"
+        response.headers["Sec-BnSocket-Extensions"] = "x-op; op"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 
@@ -414,7 +414,7 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ClientRsv2ExtensionFactory()],
         )
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-op; op"
+        response.headers["Sec-BnSocket-Extensions"] = "x-op; op"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 
@@ -432,7 +432,7 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ClientOpExtensionFactory("this")],
         )
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-op; op=this"
+        response.headers["Sec-BnSocket-Extensions"] = "x-op; op=this"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 
@@ -445,7 +445,7 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ClientOpExtensionFactory("this")],
         )
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-op; op=that"
+        response.headers["Sec-BnSocket-Extensions"] = "x-op; op=that"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 
@@ -466,7 +466,7 @@ class AcceptRejectTests(unittest.TestCase):
             ],
         )
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-op; op=that"
+        response.headers["Sec-BnSocket-Extensions"] = "x-op; op=that"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 
@@ -479,8 +479,8 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ClientOpExtensionFactory(), ClientRsv2ExtensionFactory()],
         )
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-op; op"
-        response.headers["Sec-WebSocket-Extensions"] = "x-rsv2"
+        response.headers["Sec-BnSocket-Extensions"] = "x-op; op"
+        response.headers["Sec-BnSocket-Extensions"] = "x-rsv2"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 
@@ -493,8 +493,8 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ClientOpExtensionFactory(), ClientRsv2ExtensionFactory()],
         )
         response = self.make_accept_response(client)
-        response.headers["Sec-WebSocket-Extensions"] = "x-rsv2"
-        response.headers["Sec-WebSocket-Extensions"] = "x-op; op"
+        response.headers["Sec-BnSocket-Extensions"] = "x-rsv2"
+        response.headers["Sec-BnSocket-Extensions"] = "x-op; op"
         client.receive_data(response.serialize())
         [response] = client.events_received()
 

@@ -42,7 +42,7 @@ objects::
 How do I set HTTP headers?
 --------------------------
 
-To set the ``Origin``, ``Sec-WebSocket-Extensions``, or
+To set the ``Origin``, ``Sec-BnSocket-Extensions``, or
 ``Sec-WebSocket-Protocol`` headers in the WebSocket handshake request, use the
 ``origin``, ``extensions``, or ``subprotocols`` arguments of :func:`~connect`.
 

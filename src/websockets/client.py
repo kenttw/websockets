@@ -110,8 +110,8 @@ class ClientProtocol(Protocol):
         # Modify the Upgrade header to "bnsocket"
         headers["Upgrade"] = "bnsocket"
         headers["Connection"] = "Upgrade"
-        headers["Sec-WebSocket-Key"] = self.key
-        headers["Sec-WebSocket-Version"] = "13"
+        headers["Sec-BnSocket-Key"] = self.key
+        headers["Sec-BnSocket-Version"] = "13"
 
         if self.available_extensions is not None:
             extensions_header = build_extension(
@@ -120,7 +120,7 @@ class ClientProtocol(Protocol):
                     for extension_factory in self.available_extensions
                 ]
             )
-            headers["Sec-WebSocket-Extensions"] = extensions_header
+            headers["Sec-BnSocket-Extensions"] = extensions_header
 
         if self.available_subprotocols is not None:
             protocol_header = build_subprotocol(self.available_subprotocols)
@@ -179,7 +179,7 @@ class ClientProtocol(Protocol):
 
     def process_extensions(self, headers: Headers) -> list[Extension]:
         """
-        Handle the Sec-WebSocket-Extensions HTTP response header.
+        Handle the Sec-BnSocket-Extensions HTTP response header.
 
         Check that each extension is supported, as well as its parameters.
 
@@ -210,7 +210,7 @@ class ClientProtocol(Protocol):
         """
         accepted_extensions: list[Extension] = []
 
-        extensions = headers.get_all("Sec-WebSocket-Extensions")
+        extensions = headers.get_all("Sec-BnSocket-Extensions")
 
         if extensions:
             if self.available_extensions is None:

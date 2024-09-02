@@ -250,7 +250,7 @@ objects::
 How do I set HTTP headers?
 --------------------------
 
-To set the ``Sec-WebSocket-Extensions`` or ``Sec-WebSocket-Protocol`` headers in
+To set the ``Sec-BnSocket-Extensions`` or ``Sec-WebSocket-Protocol`` headers in
 the WebSocket handshake response, use the ``extensions`` or ``subprotocols``
 arguments of :func:`~serve`.
 

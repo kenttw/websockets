@@ -23,7 +23,7 @@ CHROME_HANDSHAKE = (
     b"Accept-Encoding: gzip, deflate, br\r\n"
     b"Accept-Language: en-GB,en;q=0.9,en-US;q=0.8,fr;q=0.7\r\n"
     b"Sec-WebSocket-Key: ebkySAl+8+e6l5pRKTMkyQ==\r\n"
-    b"Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits\r\n"
+    b"Sec-BnSocket-Extensions: permessage-deflate; client_max_window_bits\r\n"
     b"\r\n"
 )
 
@@ -37,7 +37,7 @@ FIREFOX_HANDSHAKE = (
     b"Accept-Encoding: gzip, deflate, br\r\n"
     b"Sec-WebSocket-Version: 13\r\n"
     b"Origin: null\r\n"
-    b"Sec-WebSocket-Extensions: permessage-deflate\r\n"
+    b"Sec-BnSocket-Extensions: permessage-deflate\r\n"
     b"Sec-WebSocket-Key: 1PuS+hnb+0AXsL7z2hNAhw==\r\n"
     b"Connection: keep-alive, Upgrade\r\n"
     b"Sec-Fetch-Dest: websocket\r\n"
@@ -56,7 +56,7 @@ WEBSOCKETS_HANDSHAKE = (
     b"Connection: Upgrade\r\n"
     b"Sec-WebSocket-Key: 9c55e0/siQ6tJPCs/QR8ZA==\r\n"
     b"Sec-WebSocket-Version: 13\r\n"
-    b"Sec-WebSocket-Extensions: permessage-deflate; client_max_window_bits\r\n"
+    b"Sec-BnSocket-Extensions: permessage-deflate; client_max_window_bits\r\n"
     b"User-Agent: Python/3.11 websockets/11.0\r\n"
     b"\r\n"
 )

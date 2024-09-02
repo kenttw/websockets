@@ -14,7 +14,7 @@ GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
 
 def generate_key() -> str:
     """
-    Generate a random key for the Sec-WebSocket-Key header.
+    Generate a random key for the Sec-BnSocket-Key header.
 
     """
     key = secrets.token_bytes(16)
@@ -26,7 +26,7 @@ def accept_key(key: str) -> str:
     Compute the value of the Sec-WebSocket-Accept header.
 
     Args:
-        key: Value of the Sec-WebSocket-Key header.
+        key: Value of the Sec-BnSocket-Key header.
 
     """
     sha1 = hashlib.sha1((key + GUID).encode()).digest()

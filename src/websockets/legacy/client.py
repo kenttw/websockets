@@ -150,7 +150,7 @@ class WebSocketClientProtocol(WebSocketCommonProtocol):
         available_extensions: Sequence[ClientExtensionFactory] | None,
     ) -> list[Extension]:
         """
-        Handle the Sec-WebSocket-Extensions HTTP response header.
+        Handle the Sec-BnSocket-Extensions HTTP response header.
 
         Check that each extension is supported, as well as its parameters.
 
@@ -177,7 +177,7 @@ class WebSocketClientProtocol(WebSocketCommonProtocol):
         """
         accepted_extensions: list[Extension] = []
 
-        header_values = headers.get_all("Sec-WebSocket-Extensions")
+        header_values = headers.get_all("Sec-BnSocket-Extensions")
 
         if header_values:
             if available_extensions is None:
@@ -299,7 +299,7 @@ class WebSocketClientProtocol(WebSocketCommonProtocol):
                     for extension_factory in available_extensions
                 ]
             )
-            request_headers["Sec-WebSocket-Extensions"] = extensions_header
+            request_headers["Sec-BnSocket-Extensions"] = extensions_header
 
         if available_subprotocols is not None:
             protocol_header = build_subprotocol(available_subprotocols)

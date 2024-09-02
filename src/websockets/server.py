@@ -199,7 +199,7 @@ class ServerProtocol(Protocol):
         headers["Sec-WebSocket-Accept"] = accept_header
 
         if extensions_header is not None:
-            headers["Sec-WebSocket-Extensions"] = extensions_header
+            headers["Sec-BnSocket-Extensions"] = extensions_header
 
         if protocol_header is not None:
             headers["Sec-WebSocket-Protocol"] = protocol_header
@@ -229,28 +229,28 @@ class ServerProtocol(Protocol):
 
         # Continue with the existing logic...
         try:
-            key = headers["Sec-WebSocket-Key"]
+            key = headers["Sec-BnSocket-Key"]
         except KeyError as exc:
-            raise InvalidHeader("Sec-WebSocket-Key") from exc
+            raise InvalidHeader("Sec-BnSocket-Key") from exc
         except MultipleValuesError as exc:
-            raise InvalidHeader("Sec-WebSocket-Key", "multiple values") from exc
+            raise InvalidHeader("Sec-BnSocket-Key", "multiple values") from exc
 
         try:
             raw_key = base64.b64decode(key.encode(), validate=True)
         except binascii.Error as exc:
-            raise InvalidHeaderValue("Sec-WebSocket-Key", key) from exc
+            raise InvalidHeaderValue("Sec-BnSocket-Key", key) from exc
         if len(raw_key) != 16:
-            raise InvalidHeaderValue("Sec-WebSocket-Key", key)
+            raise InvalidHeaderValue("Sec-BnSocket-Key", key)
 
         try:
-            version = headers["Sec-WebSocket-Version"]
+            version = headers["Sec-BnSocket-Version"]
         except KeyError as exc:
-            raise InvalidHeader("Sec-WebSocket-Version") from exc
+            raise InvalidHeader("Sec-BnSocket-Version") from exc
         except MultipleValuesError as exc:
-            raise InvalidHeader("Sec-WebSocket-Version", "multiple values") from exc
+            raise InvalidHeader("Sec-BnSocket-Version", "multiple values") from exc
 
         if version != "13":
-            raise InvalidHeaderValue("Sec-WebSocket-Version", version)
+            raise InvalidHeaderValue("Sec-BnSocket-Version", version)
 
         accept_header = accept_key(key)
 
@@ -299,7 +299,7 @@ class ServerProtocol(Protocol):
         headers: Headers,
     ) -> tuple[str | None, list[Extension]]:
         """
-        Handle the Sec-WebSocket-Extensions HTTP request header.
+        Handle the Sec-BnSocket-Extensions HTTP request header.
 
         Accept or reject each extension proposed in the client request.
         Negotiate parameters for accepted extensions.
@@ -326,11 +326,11 @@ class ServerProtocol(Protocol):
             headers: WebSocket handshake request headers.
 
         Returns:
-            ``Sec-WebSocket-Extensions`` HTTP response header and list of
+            ``Sec-BnSocket-Extensions`` HTTP response header and list of
             accepted extensions.
 
         Raises:
-            InvalidHandshake: If the Sec-WebSocket-Extensions header is invalid.
+            InvalidHandshake: If the Sec-BnSocket-Extensions header is invalid.
 
         """
         response_header_value: str | None = None
@@ -338,7 +338,7 @@ class ServerProtocol(Protocol):
         extension_headers: list[ExtensionHeader] = []
         accepted_extensions: list[Extension] = []
 
-        header_values = headers.get_all("Sec-WebSocket-Extensions")
+        header_values = headers.get_all("Sec-BnSocket-Extensions")
 
         if header_values and self.available_extensions:
             parsed_header_values: list[ExtensionHeader] = sum(

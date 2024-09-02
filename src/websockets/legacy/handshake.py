@@ -29,8 +29,8 @@ def build_request(headers: Headers) -> str:
     key = generate_key()
     headers["Upgrade"] = "websocket"
     headers["Connection"] = "Upgrade"
-    headers["Sec-WebSocket-Key"] = key
-    headers["Sec-WebSocket-Version"] = "13"
+    headers["Sec-BnSocket-Key"] = key
+    headers["Sec-BnSocket-Version"] = "13"
     return key
 
 
@@ -72,28 +72,28 @@ def check_request(headers: Headers) -> str:
         raise InvalidUpgrade("Upgrade", ", ".join(upgrade))
 
     try:
-        s_w_key = headers["Sec-WebSocket-Key"]
+        s_w_key = headers["Sec-BnSocket-Key"]
     except KeyError as exc:
-        raise InvalidHeader("Sec-WebSocket-Key") from exc
+        raise InvalidHeader("Sec-BnSocket-Key") from exc
     except MultipleValuesError as exc:
-        raise InvalidHeader("Sec-WebSocket-Key", "multiple values") from exc
+        raise InvalidHeader("Sec-BnSocket-Key", "multiple values") from exc
 
     try:
         raw_key = base64.b64decode(s_w_key.encode(), validate=True)
     except binascii.Error as exc:
-        raise InvalidHeaderValue("Sec-WebSocket-Key", s_w_key) from exc
+        raise InvalidHeaderValue("Sec-BnSocket-Key", s_w_key) from exc
     if len(raw_key) != 16:
-        raise InvalidHeaderValue("Sec-WebSocket-Key", s_w_key)
+        raise InvalidHeaderValue("Sec-BnSocket-Key", s_w_key)
 
     try:
-        s_w_version = headers["Sec-WebSocket-Version"]
+        s_w_version = headers["Sec-BnSocket-Version"]
     except KeyError as exc:
-        raise InvalidHeader("Sec-WebSocket-Version") from exc
+        raise InvalidHeader("Sec-BnSocket-Version") from exc
     except MultipleValuesError as exc:
-        raise InvalidHeader("Sec-WebSocket-Version", "multiple values") from exc
+        raise InvalidHeader("Sec-BnSocket-Version", "multiple values") from exc
 
     if s_w_version != "13":
-        raise InvalidHeaderValue("Sec-WebSocket-Version", s_w_version)
+        raise InvalidHeaderValue("Sec-BnSocket-Version", s_w_version)
 
     return s_w_key
 

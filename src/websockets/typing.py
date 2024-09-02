@@ -66,7 +66,7 @@ ExtensionParameter = Tuple[str, Optional[str]]
 
 # Change to tuple[.., list[...]] when dropping Python < 3.9.
 ExtensionHeader = Tuple[ExtensionName, List[ExtensionParameter]]
-"""Extension in a ``Sec-WebSocket-Extensions`` header."""
+"""Extension in a ``Sec-BnSocket-Extensions`` header."""
 
 
 ConnectionOption = NewType("ConnectionOption", str)

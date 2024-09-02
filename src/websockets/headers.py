@@ -355,7 +355,7 @@ def parse_extension_item(
 
 def parse_extension(header: str) -> list[ExtensionHeader]:
     """
-    Parse a ``Sec-WebSocket-Extensions`` header.
+    Parse a ``Sec-BnSocket-Extensions`` header.
 
     Return a list of WebSocket extensions and their parameters in this format::
 
@@ -376,7 +376,7 @@ def parse_extension(header: str) -> list[ExtensionHeader]:
         InvalidHeaderFormat: On invalid inputs.
 
     """
-    return parse_list(parse_extension_item, header, 0, "Sec-WebSocket-Extensions")
+    return parse_list(parse_extension_item, header, 0, "Sec-BnSocket-Extensions")
 
 
 parse_extension_list = parse_extension  # alias for backwards compatibility
@@ -403,7 +403,7 @@ def build_extension_item(
 
 def build_extension(extensions: Sequence[ExtensionHeader]) -> str:
     """
-    Build a ``Sec-WebSocket-Extensions`` header.
+    Build a ``Sec-BnSocket-Extensions`` header.
 
     This is the reverse of :func:`parse_extension`.
 

@@ -479,7 +479,7 @@ class AcceptRejectTests(unittest.TestCase):
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
-        self.assertNotIn("Sec-WebSocket-Extensions", response.headers)
+        self.assertNotIn("Sec-BnSocket-Extensions", response.headers)
         self.assertEqual(server.extensions, [])
 
     def test_no_extension(self):
@@ -488,57 +488,57 @@ class AcceptRejectTests(unittest.TestCase):
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
-        self.assertNotIn("Sec-WebSocket-Extensions", response.headers)
+        self.assertNotIn("Sec-BnSocket-Extensions", response.headers)
         self.assertEqual(server.extensions, [])
 
     def test_extension(self):
         server = ServerProtocol(extensions=[ServerOpExtensionFactory()])
         request = self.make_request()
-        request.headers["Sec-WebSocket-Extensions"] = "x-op; op"
+        request.headers["Sec-BnSocket-Extensions"] = "x-op; op"
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
-        self.assertEqual(response.headers["Sec-WebSocket-Extensions"], "x-op; op")
+        self.assertEqual(response.headers["Sec-BnSocket-Extensions"], "x-op; op")
         self.assertEqual(server.extensions, [OpExtension()])
 
     def test_unexpected_extension(self):
         server = ServerProtocol()
         request = self.make_request()
-        request.headers["Sec-WebSocket-Extensions"] = "x-op; op"
+        request.headers["Sec-BnSocket-Extensions"] = "x-op; op"
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
-        self.assertNotIn("Sec-WebSocket-Extensions", response.headers)
+        self.assertNotIn("Sec-BnSocket-Extensions", response.headers)
         self.assertEqual(server.extensions, [])
 
     def test_unsupported_extension(self):
         server = ServerProtocol(extensions=[ServerRsv2ExtensionFactory()])
         request = self.make_request()
-        request.headers["Sec-WebSocket-Extensions"] = "x-op; op"
+        request.headers["Sec-BnSocket-Extensions"] = "x-op; op"
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
-        self.assertNotIn("Sec-WebSocket-Extensions", response.headers)
+        self.assertNotIn("Sec-BnSocket-Extensions", response.headers)
         self.assertEqual(server.extensions, [])
 
     def test_supported_extension_parameters(self):
         server = ServerProtocol(extensions=[ServerOpExtensionFactory("this")])
         request = self.make_request()
-        request.headers["Sec-WebSocket-Extensions"] = "x-op; op=this"
+        request.headers["Sec-BnSocket-Extensions"] = "x-op; op=this"
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
-        self.assertEqual(response.headers["Sec-WebSocket-Extensions"], "x-op; op=this")
+        self.assertEqual(response.headers["Sec-BnSocket-Extensions"], "x-op; op=this")
         self.assertEqual(server.extensions, [OpExtension("this")])
 
     def test_unsupported_extension_parameters(self):
         server = ServerProtocol(extensions=[ServerOpExtensionFactory("this")])
         request = self.make_request()
-        request.headers["Sec-WebSocket-Extensions"] = "x-op; op=that"
+        request.headers["Sec-BnSocket-Extensions"] = "x-op; op=that"
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
-        self.assertNotIn("Sec-WebSocket-Extensions", response.headers)
+        self.assertNotIn("Sec-BnSocket-Extensions", response.headers)
         self.assertEqual(server.extensions, [])
 
     def test_multiple_supported_extension_parameters(self):
@@ -549,11 +549,11 @@ class AcceptRejectTests(unittest.TestCase):
             ]
         )
         request = self.make_request()
-        request.headers["Sec-WebSocket-Extensions"] = "x-op; op=that"
+        request.headers["Sec-BnSocket-Extensions"] = "x-op; op=that"
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
-        self.assertEqual(response.headers["Sec-WebSocket-Extensions"], "x-op; op=that")
+        self.assertEqual(response.headers["Sec-BnSocket-Extensions"], "x-op; op=that")
         self.assertEqual(server.extensions, [OpExtension("that")])
 
     def test_multiple_extensions(self):
@@ -561,13 +561,13 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ServerOpExtensionFactory(), ServerRsv2ExtensionFactory()]
         )
         request = self.make_request()
-        request.headers["Sec-WebSocket-Extensions"] = "x-op; op"
-        request.headers["Sec-WebSocket-Extensions"] = "x-rsv2"
+        request.headers["Sec-BnSocket-Extensions"] = "x-op; op"
+        request.headers["Sec-BnSocket-Extensions"] = "x-rsv2"
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
         self.assertEqual(
-            response.headers["Sec-WebSocket-Extensions"], "x-op; op, x-rsv2"
+            response.headers["Sec-BnSocket-Extensions"], "x-op; op, x-rsv2"
         )
         self.assertEqual(server.extensions, [OpExtension(), Rsv2Extension()])
 
@@ -576,13 +576,13 @@ class AcceptRejectTests(unittest.TestCase):
             extensions=[ServerOpExtensionFactory(), ServerRsv2ExtensionFactory()]
         )
         request = self.make_request()
-        request.headers["Sec-WebSocket-Extensions"] = "x-rsv2"
-        request.headers["Sec-WebSocket-Extensions"] = "x-op; op"
+        request.headers["Sec-BnSocket-Extensions"] = "x-rsv2"
+        request.headers["Sec-BnSocket-Extensions"] = "x-op; op"
         response = server.accept(request)
 
         self.assertEqual(response.status_code, 101)
         self.assertEqual(
-            response.headers["Sec-WebSocket-Extensions"], "x-rsv2, x-op; op"
+            response.headers["Sec-BnSocket-Extensions"], "x-rsv2, x-op; op"
         )
         self.assertEqual(server.extensions, [Rsv2Extension(), OpExtension()])
 
