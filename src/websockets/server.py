@@ -191,10 +191,10 @@ class ServerProtocol(Protocol):
             )
 
         headers = Headers()
-
         headers["Date"] = email.utils.formatdate(usegmt=True)
 
-        headers["Upgrade"] = "websocket"
+        # Change the Upgrade header to "bnsocket"
+        headers["Upgrade"] = "bnsocket"
         headers["Connection"] = "Upgrade"
         headers["Sec-WebSocket-Accept"] = accept_header
 
@@ -207,30 +207,7 @@ class ServerProtocol(Protocol):
         self.logger.info("connection open")
         return Response(101, "Switching Protocols", headers)
 
-    def process_request(
-        self,
-        request: Request,
-    ) -> tuple[str, str | None, str | None]:
-        """
-        Check a handshake request and negotiate extensions and subprotocol.
-
-        This function doesn't verify that the request is an HTTP/1.1 or higher
-        GET request and doesn't check the ``Host`` header. These controls are
-        usually performed earlier in the HTTP request handling code. They're
-        the responsibility of the caller.
-
-        Args:
-            request: WebSocket handshake request received from the client.
-
-        Returns:
-            ``Sec-WebSocket-Accept``, ``Sec-WebSocket-Extensions``, and
-            ``Sec-WebSocket-Protocol`` headers for the handshake response.
-
-        Raises:
-            InvalidHandshake: If the handshake request is invalid;
-                then the server must return 400 Bad Request error.
-
-        """
+    def process_request(self, request: Request) -> tuple[str, str | None, str | None]:
         headers = request.headers
 
         connection: list[ConnectionOption] = sum(
@@ -246,12 +223,11 @@ class ServerProtocol(Protocol):
             [parse_upgrade(value) for value in headers.get_all("Upgrade")], []
         )
 
-        # For compatibility with non-strict implementations, ignore case when
-        # checking the Upgrade header. The RFC always uses "websocket", except
-        # in section 11.2. (IANA registration) where it uses "WebSocket".
-        if not (len(upgrade) == 1 and upgrade[0].lower() == "websocket"):
+        # Check that the client is requesting to upgrade to "bnsocket"
+        if not (len(upgrade) == 1 and upgrade[0].lower() == "bnsocket"):
             raise InvalidUpgrade("Upgrade", ", ".join(upgrade) if upgrade else None)
 
+        # Continue with the existing logic...
         try:
             key = headers["Sec-WebSocket-Key"]
         except KeyError as exc:

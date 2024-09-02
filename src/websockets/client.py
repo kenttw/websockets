@@ -95,17 +95,6 @@ class ClientProtocol(Protocol):
         self.key = generate_key()
 
     def connect(self) -> Request:
-        """
-        Create a handshake request to open a connection.
-
-        You must send the handshake request with :meth:`send_request`.
-
-        You can modify it before sending it, for example to add HTTP headers.
-
-        Returns:
-            WebSocket handshake request event to send to the server.
-
-        """
         headers = Headers()
 
         headers["Host"] = build_host(
@@ -118,7 +107,8 @@ class ClientProtocol(Protocol):
         if self.origin is not None:
             headers["Origin"] = self.origin
 
-        headers["Upgrade"] = "websocket"
+        # Modify the Upgrade header to "bnsocket"
+        headers["Upgrade"] = "bnsocket"
         headers["Connection"] = "Upgrade"
         headers["Sec-WebSocket-Key"] = self.key
         headers["Sec-WebSocket-Version"] = "13"
